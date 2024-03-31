@@ -2,9 +2,14 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/logo.png";
 import { navItems } from "../constants";
+import { useAuth } from '@clerk/clerk-react'
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react"
 
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const { userId } = useAuth();
+
+  console.log(userId);
 
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
@@ -26,14 +31,22 @@ const Navbar = () => {
             ))}
           </ul>
           <div className="hidden lg:flex justify-center space-x-12 items-center">
-            <a href="#" className="py-2 px-3 text-md border rounded-md transition duration-300 ease-in-out hover:text-white hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
-              Sign In
-            </a>
-            <a
-              href="#" className="bg-gradient-to-r bg-[#1da1f2] py-2 px-3 rounded-md text-md hover:bg-[#5656f8]"
-            >
-              Create an Event
-            </a>
+            <SignedOut>
+              <button className="py-2 px-3 text-md border rounded-md transition duration-300 ease-in-out hover:text-white hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
+                <SignInButton />
+              </button>
+            </SignedOut>
+
+            <SignedIn>
+              <UserButton afterSignOutUrl="/" />
+            </SignedIn>
+
+
+
+
+
+
+
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -65,6 +78,8 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+
+
   );
 };
 
