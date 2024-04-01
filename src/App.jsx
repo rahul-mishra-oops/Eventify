@@ -5,9 +5,13 @@ import AboutUs from "./pages/AboutUs";
 import KnowHow from "./pages/KnowHow";
 import Developer from "./pages/Developer";
 import ContactUs from "./pages/ContactUs";
+import EventCreation from "./pages/EventCreation";
+import { useAuth } from "@clerk/clerk-react";
+import ErrorPage from "./pages/ErrorPage";
 
 
 const App = () => {
+  const { isSignedIn } = useAuth();
   return (
     <>
       <BrowserRouter>
@@ -17,6 +21,14 @@ const App = () => {
           <Route path="/workflow" element={<KnowHow />} />
           <Route path="/developers" element={<Developer />} />
           <Route path="/contactus" element={<ContactUs />} />
+          {isSignedIn ? (
+            <Route path="/createevent" element={<EventCreation />} />
+          ) : (
+            <Route path="/createevent" element={<ErrorPage />} />
+          )
+
+          }
+
 
 
         </Routes>

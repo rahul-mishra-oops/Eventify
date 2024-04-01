@@ -35,15 +35,17 @@ const Navbar = () => {
               <button className="py-2 px-3 text-md border rounded-md transition duration-300 ease-in-out hover:text-white hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300">
                 <SignInButton />
               </button>
-              <button onClick={() => loginWithRedirect()} className="bg-gradient-to-r bg-[#1da1f2] py-2 px-3 rounded-md text-md hover:bg-[#5656f8]"
-              >
+              <a href="createevent"><button className="bg-gradient-to-r bg-[#1da1f2] py-2 px-3 rounded-md text-md hover:bg-[#5656f8]">
                 Create an Event
-              </button>
+              </button></a>
 
             </SignedOut>
 
             <SignedIn>
               <UserButton afterSignOutUrl="/" />
+              <a href="createevent"><button className="bg-gradient-to-r bg-[#1da1f2] py-2 px-3 rounded-md text-md hover:bg-[#5656f8]">
+                Create an Event
+              </button></a>
             </SignedIn>
 
 

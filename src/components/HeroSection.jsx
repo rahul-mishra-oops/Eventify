@@ -19,7 +19,7 @@ const HeroSection = () => {
         </p>
         <div className="flex justify-start my-10">
           <a
-            href="#"
+            href="createevent"
             className="bg-gradient-to-r from-blue-500 to-sky-800 py-3 px-4 mx-3 rounded-md text-white drop-shadow-2xl"
           >
             Create an event
