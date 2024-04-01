@@ -8,10 +8,10 @@ import user4 from "../assets/profile-pictures/user4.jpg";
 
 
 export const navItems = [
-  { label: "Features", href: "#" },
-  { label: "Know How", href: "#" },
-  { label: "Developers", href: "#" },
-  { label: "Contact Us", href: "#" },
+  { label: "Features", href: "about" },
+  { label: "Know How", href: "workflow" },
+  { label: "Developers", href: "developers" },
+  { label: "Contact Us", href: "contactus" },
 ];
 
 
