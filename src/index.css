@@ -181,7 +181,7 @@ select {
   margin-top: -25px;
   display: grid;
  }
- button {
+ .btn1 {
   width: 150px;
   height: 30px;
   color: #fff;
@@ -223,3 +223,4 @@ select {
   margin-top: 10px;
   background-color: midnightblue;
  }
+ 

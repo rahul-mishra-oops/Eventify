@@ -24,7 +24,7 @@ const App = () => {
           <Route path="/developers" element={<Developer />} />
           <Route path="/contactus" element={<ContactUs />} />
           <Route path="/allevents" element={<EventListPage />} />
-          <Route path="/event" element={<SingleEventPage />} />
+          <Route path="/event/:eventId" element={<SingleEventPage />} />
 
           {isSignedIn ? (
             <Route path="/createevent" element={<EventCreation />} />

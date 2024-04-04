@@ -1,45 +1,72 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faLocationDot, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
 
 const SingleEvent = () => {
+    const { eventId } = useParams();
+    const [event, setEvent] = useState(null);
+
+    useEffect(() => {
+        const fetchEvent = async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/events/${eventId}`);
+                if (response.ok) {
+                    const eventData = await response.json();
+                    setEvent(eventData);
+                } else {
+                    console.error('Failed to fetch event');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        };
+
+        fetchEvent();
+    }, [eventId]);
+
     return (
         <div className="singlevent">
-            <div className="event">
-                <img src="https://shotkit.com/wp-content/uploads/2020/09/event-photography-8.jpg" />
-                <div className="eventdetails">
-                    <h1>EVENT NAME : holi </h1>
+            {event && (
+                <div className="event">
+                    <img src={event.image} alt="Event" />
+                    <div className="eventdetails">
+                        <h1>EVENT NAME : {event.eventname}</h1>
+                        <br />
+                        <div className="eventsidebar">
+                            <div className="eventsummary">
+                                <span><FontAwesomeIcon icon={faCalendarDays} />&nbsp;&nbsp;{event.eventdate}</span>
+                                <span><FontAwesomeIcon icon={faLocationDot} />&nbsp;&nbsp;{event.eventcity}, {event.state}, {event.country}</span>
+                                {/* Assuming event.price exists */}
+                                <span><FontAwesomeIcon icon={faIndianRupeeSign} />&nbsp;&nbsp;{event.price} onwards </span>
+                            </div>
+                            <div className="btn">
+                                <button className="editbtn">Edit Event</button>
+                                <button className="deletebtn">Delete Event</button>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <hr />
                     <br />
-                    <div className="eventsidebar">
-                        <div className="eventsummary">
-                            <span><FontAwesomeIcon icon={faCalendarDays} />&nbsp;&nbsp;April 2024</span>
-                            <span><FontAwesomeIcon icon={faLocationDot} />&nbsp;&nbsp;Delhi India </span>
-                            <span><FontAwesomeIcon icon={faIndianRupeeSign} />&nbsp;&nbsp;1000 onwards </span>
+                    <div className='eventsleftside'>
+                        <div className="eventsbuy">
+                            <span>Organzier Name : {event.orgernisername}</span>
+                            <span>Organzier Phone : {event.organiserphone}</span>
                         </div>
-                        <div className="btn">
-                            <button className="editbtn">Edit Event</button>
-                            <button className="deletebtn">Delete Event</button>
-                        </div>
+                        <button className="buybtn">Buy Ticket</button>
                     </div>
                     <br />
                 </div>
-                <hr />
-                <br />
-                <div className='eventsleftside'>
-                    <div className="eventsbuy">
-                        <span>Organzier Name : </span>
-                        <span>Organzier Phone : </span>
-                    </div>
-                    <button className="buybtn">Buy Ticket</button>
+            )}
+            {event && (
+                <div className="eventdescription">
+                    <span>Event Description:</span>
+                    <p>{event.description}</p>
                 </div>
-                <br />
-            </div>
-            <div className="eventdescription">
-                <span>Event Description:</span>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non corporis mollitia eum distinctio, velit fugit necessitatibus voluptas nulla sint delectus? Autem eaque, dicta iste consequatur veritatis magni doloribus itaque voluptatem quasi distinctio! Vitae tenetur id ea error, mollitia at sint totam voluptatem consequuntur nostrum minima accusantium, eos tempore explicabo et. Omnis veniam a sit quae tempora rem iste dicta, laboriosam cumque reiciendis amet porro labore ex voluptas, repudiandae illo perspiciatis. Cumque expedita provident dolorem assumenda repudiandae delectus culpa. Odit provident repellendus dolorem neque corporis, eius dolor accusantium, laboriosam asperiores ullam officiis placeat numquam. Culpa, unde id dolor soluta, porro inventore ad, at optio adipisci distinctio deleniti. Odio voluptatum natus inventore!</p>
-            </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
 export default SingleEvent;

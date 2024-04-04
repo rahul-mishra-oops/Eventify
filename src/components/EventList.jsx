@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const EventList = () => {
     const [events, setEvents] = useState([]);
@@ -35,7 +36,9 @@ const EventList = () => {
                             <li>Organzier Phone:{event.organiserphone} </li>
 
                         </ul>
-                        <button>Select</button>
+                        <Link to={`/event/${event.id}`}>
+                            <button>Know More</button>
+                        </Link>
                     </div>
                 </div>
             ))}

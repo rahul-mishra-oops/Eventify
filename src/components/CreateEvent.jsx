@@ -94,7 +94,7 @@ const CreateEvent = () => {
                     <label for="img"><i className="fa-solid fa-upload"></i>Upload image</label>
                 </div>
                 <div className='formsubmit'>
-                    <button type='submit'>Submit</button>
+                    <button className='btn1' type='submit'>Submit</button>
                     <Link to="/allevents"><button>Go to events page</button></Link>
                 </div>
             </form>
