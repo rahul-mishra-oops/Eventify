@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+
 
 
 const CreateEvent = () => {
@@ -15,10 +17,26 @@ const CreateEvent = () => {
         setUser({ ...user, [name]: value });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(user);
-        setUser(initialUserState);
+        try {
+            const response = await fetch('http://localhost:3000/events', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            });
+            if (response.ok) {
+                console.log('Event created successfully');
+                // Optionally, you can clear the form after submission
+                setUser(initialUserState);
+            } else {
+                console.error('Failed to create event');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
     return (
         <div className='formcontainer'>
@@ -76,7 +94,8 @@ const CreateEvent = () => {
                     <label for="img"><i className="fa-solid fa-upload"></i>Upload image</label>
                 </div>
                 <div className='formsubmit'>
-                    <button>Submit</button>
+                    <button type='submit'>Submit</button>
+                    <Link to="/allevents"><button>Go to events page</button></Link>
                 </div>
             </form>
         </div>

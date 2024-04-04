@@ -24,7 +24,7 @@ const HeroSection = () => {
           >
             Create an event
           </a>
-          <a href="#" className="shadow-2xl py-3 px-4 mx-3 rounded-md border">
+          <a href="allevents" className="shadow-2xl py-3 px-4 mx-3 rounded-md border">
             Explore events
           </a>
         </div>

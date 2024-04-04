@@ -8,6 +8,8 @@ import ContactUs from "./pages/ContactUs";
 import EventCreation from "./pages/EventCreation";
 import { useAuth } from "@clerk/clerk-react";
 import ErrorPage from "./pages/ErrorPage";
+import EventListPage from "./pages/EventListPage";
+import SingleEventPage from "./pages/SingleEventPage";
 
 
 const App = () => {
@@ -21,6 +23,9 @@ const App = () => {
           <Route path="/workflow" element={<KnowHow />} />
           <Route path="/developers" element={<Developer />} />
           <Route path="/contactus" element={<ContactUs />} />
+          <Route path="/allevents" element={<EventListPage />} />
+          <Route path="/event" element={<SingleEventPage />} />
+
           {isSignedIn ? (
             <Route path="/createevent" element={<EventCreation />} />
           ) : (
@@ -28,6 +33,7 @@ const App = () => {
           )
 
           }
+
 
 
 

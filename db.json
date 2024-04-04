@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "id": "7419",
+      "eventname": "DPL",
+      "eventdate": "",
+      "eventcity": "BBSR",
+      "state": "OR",
+      "country": "India",
+      "orgernisername": "Rahul J Mishra",
+      "organiserphone": "987678652",
+      "description": "This is a celebration",
+      "image": "C:\\fakepath\\signature.jpg"
+    },
+    {
+      "id": "7703",
+      "eventname": "IPL",
+      "eventdate": "2024-04-06",
+      "eventcity": "BBSR",
+      "state": "MH",
+      "country": "INDIA",
+      "orgernisername": "Rahul J Mishra",
+      "organiserphone": "987678652",
+      "description": "This is a celebration",
+      "image": "C:\\fakepath\\Passport Photo rahul.png"
+    },
+    {
+      "id": "07fa",
+      "eventname": "Diwali",
+      "eventdate": "2024-04-07",
+      "eventcity": "Bhopal",
+      "state": "MP",
+      "country": "India",
+      "orgernisername": "Risabh Pradhan",
+      "organiserphone": "7654389",
+      "description": "This is a celebration",
+      "image": "C:\\fakepath\\signature.jpg"
+    },
+    {
+      "id": "f84a",
+      "eventname": "Diwali",
+      "eventdate": "2024-04-05",
+      "eventcity": "Bhopal",
+      "state": "ML",
+      "country": "India",
+      "orgernisername": "Risabh Pradhan",
+      "organiserphone": "7654389",
+      "description": "This is a celebration",
+      "image": ""
+    }
+  ]
+}
