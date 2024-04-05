@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarDays, faLocationDot, faIndianRupeeSign } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 const SingleEvent = () => {
     const { eventId } = useParams();
     const [event, setEvent] = useState(null);
+
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -13,6 +15,7 @@ const SingleEvent = () => {
                 const response = await fetch(`http://localhost:3000/events/${eventId}`);
                 if (response.ok) {
                     const eventData = await response.json();
+
                     setEvent(eventData);
                 } else {
                     console.error('Failed to fetch event');
@@ -24,6 +27,21 @@ const SingleEvent = () => {
 
         fetchEvent();
     }, [eventId]);
+
+    const handleDeleteEvent = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/events/${eventId}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                console.log('Event deleted successfully');
+            } else {
+                console.error('Failed to delete event');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     return (
         <div className="singlevent">
@@ -41,8 +59,12 @@ const SingleEvent = () => {
                                 <span><FontAwesomeIcon icon={faIndianRupeeSign} />&nbsp;&nbsp;{event.price} onwards </span>
                             </div>
                             <div className="btn">
-                                <button className="editbtn">Edit Event</button>
-                                <button className="deletebtn">Delete Event</button>
+                                <Link to={`/edit/${event.id}`}>
+                                    <button className="editbtn">Edit Event</button>
+                                </Link>
+                                <Link to={'/allevents'}>
+                                    <button className="deletebtn" onClick={handleDeleteEvent}>Delete Event</button>
+                                </Link>
                             </div>
                         </div>
                         <br />

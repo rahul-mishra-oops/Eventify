@@ -1,14 +1,37 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom';
 
 
 
 const CreateEvent = () => {
+    const { eventId } = useParams();
+    const isEditing = eventId ? true : false;
     const initialUserState = {
         eventname: "", eventdate: "", eventcity: "", state: "", country: "", orgernisername: "", organiserphone: "", description: "", image: "",
     };
     const [user, setUser] = useState(initialUserState);
     let name, value;
+    useEffect(() => {
+        if (isEditing) {
+            fetchEventData();
+        }
+    }, [isEditing]);
+
+    const fetchEventData = async () => {
+        try {
+            const response = await fetch(`http://localhost:3000/events/${eventId}`);
+            if (response.ok) {
+                const eventData = await response.json();
+                console.log(eventData);
+                setUser(eventData);
+            } else {
+                console.error('Failed to fetch event data');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
     const handleInputs = (e) => {
         console.log(e);
         name = e.target.name;
@@ -19,24 +42,28 @@ const CreateEvent = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const url = isEditing ? `http://localhost:3000/events/${eventId}` : 'http://localhost:3000/events';
+        const method = isEditing ? 'PUT' : 'POST';
+
         try {
-            const response = await fetch('http://localhost:3000/events', {
-                method: 'POST',
+            const response = await fetch(url, {
+                method: method,
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(user)
             });
             if (response.ok) {
-                console.log('Event created successfully');
-                // Optionally, you can clear the form after submission
+                console.log(isEditing ? 'Event updated successfully' : 'Event created successfully');
                 setUser(initialUserState);
+                // Optionally, you can redirect the user to the event list page
             } else {
-                console.error('Failed to create event');
+                console.error(isEditing ? 'Failed to update event' : 'Failed to create event');
             }
         } catch (error) {
             console.error('Error:', error);
         }
+
     }
     return (
         <div className='formcontainer'>
@@ -90,8 +117,8 @@ const CreateEvent = () => {
                     <input type='text' id="organizername" placeholder='Organizer name' name='orgernisername' value={user.orgernisername} onChange={handleInputs} />
                     <input type='tel' id="organizerphone" placeholder='Organizer phone' name='organiserphone' value={user.organiserphone} onChange={handleInputs} />
                     <input type='text' id="description" placeholder='Description' name='description' value={user.description} onChange={handleInputs} />
-                    <input type="file" id="img" name="image" accept="image/*" value={user.image} onChange={handleInputs} />
-                    <label for="img"><i className="fa-solid fa-upload"></i>Upload image</label>
+                    <input type="text" id="img" name="image" placeholder="Image URL" value={user.image} onChange={handleInputs} />
+                    {/* <label for="img"><i className="fa-solid fa-upload"></i>Upload image</label> */}
                 </div>
                 <div className='formsubmit'>
                     <button className='btn1' type='submit'>Submit</button>
